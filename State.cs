@@ -1,7 +1,7 @@
 public class State
 {//singleton???
     public int speler;
-    public bool spelGaande;
+    // public bool spelGaande; kan alleen met int spelerGewonnen
     public int spelerGewonnen;
     private static State _instance;
     private static readonly object _instanceLock = new();
@@ -9,7 +9,7 @@ public class State
     private State()
     {
         this.speler = 1;
-        this.spelGaande = true;
+        // this.spelGaande = true;
         this.spelerGewonnen = 0;
     }
     public static State getInstance()

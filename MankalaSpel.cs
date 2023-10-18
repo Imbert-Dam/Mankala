@@ -2,6 +2,7 @@ public abstract class MankalaSpel
 {
     public State state;
     public Bord Speelbord;
+    public int currentPlayer; //stores huidige speler maar ook winnaar als afgelopen
 
     public MankalaSpel()
     {
@@ -9,8 +10,22 @@ public abstract class MankalaSpel
         state = State.getInstance();
     }
     protected abstract Bord GetBord();
-    public abstract void Zet();
+    public virtual void Zet(int kuiltje)
+    {
+        currentPlayer= state.speler;
+        int aantalsteentjes = Speelbord.Kuiltjes[currentPlayer,kuiltje-1].steentjes;
+    }
     public abstract void ZetResultaat();
+    public bool isWinst()
+    {
+        int winnaar = state.spelerGewonnen;
+        if (winnaar!=0)
+        {
+            currentPlayer = winnaar; //store winnaar in currentPlayer
+            return true;
+        }
+        return false;
+    }
     public abstract bool CheckWin();
 }
 
@@ -21,10 +36,6 @@ public class MankalaV1 : MankalaSpel
          return new MankalaV1Bord();
      }
 
-    public override void Zet()
-    {
-        
-    }
 
     public override void ZetResultaat()
     {

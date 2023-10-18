@@ -17,7 +17,7 @@ public static class GameManager
 
     public static void gameLoop()
     {
-        while(!isWinst())
+        while(!MankalaSpel.isWinst())
         {
             int input = inputLezer();
             Console.WriteLine(input);
@@ -27,15 +27,15 @@ public static class GameManager
         Console.WriteLine($"Speler {MankalaSpel.state.spelerGewonnen} heeft gewonnen!");
     }
 
-    static bool isWinst()
-    {
-        if (MankalaSpel.state.spelGaande)
-        {
-            return false;   
-        }
-        return true;
+    // static bool isWinst() kunnen we in MankalaSpel doen
+    // {
+    //     if (MankalaSpel.state.spelGaande)
+    //     {
+    //         return false;   
+    //     }
+    //     return true;
         
-    }
+    // }
 
     static void naZet()
     {

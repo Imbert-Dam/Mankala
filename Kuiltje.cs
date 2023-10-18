@@ -1,7 +1,7 @@
 public abstract class Kuiltje
 {
     private int speler;
-    private int steentjes;
+    public int steentjes; //misschien een getter van maken?
 
     public abstract void AddSteentje();
 }
