@@ -10,7 +10,12 @@ public class MankalaV1Bord : Bord
     public MankalaV1Bord()
     {
         // Maak bord met bepaalde hvh kuiltjes
-        this.Kuiltjes = new Kuiltje[2, 3];
+        this.Kuiltjes = new Kuiltje[2, 7];
         this.ThuisKuiltjes = new List<ThuisKuiltje>();
+        fillBord();
+    }
+    private void fillBord()
+    {
+        
     }
 }
