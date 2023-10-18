@@ -19,7 +19,7 @@ public abstract class MankalaSpel
     public bool isWinst()
     {
         int winnaar = state.spelerGewonnen;
-        if (winnaar!=0)
+        if (winnaar != 0)
         {
             currentPlayer = winnaar; //store winnaar in currentPlayer
             return true;

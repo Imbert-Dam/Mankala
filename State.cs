@@ -14,7 +14,7 @@ public class State
     }
     public static State getInstance()
     {
-        if(_instance ==null)
+        if(_instance == null)
         {
             lock (_instanceLock) 
             { // prevents multiple threads from creating an instance of Printer

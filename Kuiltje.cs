@@ -1,7 +1,7 @@
 public abstract class Kuiltje
 {
     private int speler;
-    public int steentjes; //misschien een getter van maken?
+    public int steentjes; // Je zei hier Getter, maar miss beter gwn zo? We moeten hem ook kunnen setten namelijk
 
     public abstract void AddSteentje();
 }
@@ -14,7 +14,8 @@ public class ThuisKuiltje : Kuiltje
 
     public override void AddSteentje()
     {
-        throw new NotImplementedException();
+        steentjes += 1;
+        // TODO nog meer logic i presume
     }
 
     public void AddSteentjes(int amount)
@@ -34,6 +35,8 @@ public class BordKuiltje : Kuiltje
 
     public override void AddSteentje()
     {
-        throw new NotImplementedException();
+        steentjes += 1;
+        // TODO nog meer logic i presume
     }
+    //TODO deze ook een AddSteentjes? Hebben we eigk wel nodig als we het bord initializeren
 }

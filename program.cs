@@ -45,6 +45,7 @@ public static class GameManager
     static void Display()
     {
         // Interact met Forms later, nu even console.log
+        MankalaSpel.Speelbord.ToString(); // Zo doen? En dan ToString een definitie geven in Bord
     }
 
     static int inputLezer()
@@ -52,6 +53,9 @@ public static class GameManager
         Display();
         Console.WriteLine($"Wat is speler's {MankalaSpel.state.speler} zet?");
         string input = Console.ReadLine();
+        // if (input == null){
+        //     return inputLezer(); // Ik ben niet bekend met returnen van methodes
+        // }
         char k = input[0]; //uitkijken voor null reference
         if(Char.IsNumber(k))
         {

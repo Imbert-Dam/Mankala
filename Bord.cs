@@ -1,3 +1,5 @@
+using System.Text;
+
 public abstract class Bord
 {
     public Kuiltje[,] Kuiltjes;
@@ -15,7 +17,36 @@ public class MankalaV1Bord : Bord
         fillBord();
     }
     private void fillBord()
+    { // V1 heeft in elk Kuiltje 4 steentjes
+
+        for (int kolom = 0; kolom < Kuiltjes.GetLength(0); kolom++)
+        {
+            for (int rij = 0; rij < Kuiltjes.GetLength(1); rij++)
+            {
+                if (Kuiltjes[kolom, rij].GetType() == typeof(ThuisKuiltje)) // https://stackoverflow.com/questions/3561202/check-if-instance-is-of-a-type
+                {
+                    continue;
+                }
+                Kuiltjes[kolom, rij].steentjes = 4; 
+            }
+        }
+    }
+
+    public override string ToString() // Heb ik hier toegevoegd
     {
+        // even kijken hoe we die 2d array willen representeren, daarnaast kijken of 
+        // we het in de volgorde van links naar rechts doen, zoals men leest, of in
+        // volgorde van mankala (arab style)
+        StringBuilder sb = new StringBuilder();
         
+        for (int rij = 0; rij < rijen; rij++) // TODO rijen definieren
+        {
+            for (int kolom = 0; kolom < Kuiltjes.GetLength(0); kolom++)
+            {
+                sb.Append(Kuiltjes[kolom, rij]);
+            }
+        }
+
+        return sb.ToString();
     }
 }
