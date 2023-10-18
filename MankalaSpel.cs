@@ -1,11 +1,12 @@
 public abstract class MankalaSpel
 {
-    private State state;
+    public State state;
     public Bord Speelbord;
 
     public MankalaSpel()
     {
         Speelbord = GetBord();
+        state = State.getInstance();
     }
     protected abstract Bord GetBord();
     public abstract void Zet();
