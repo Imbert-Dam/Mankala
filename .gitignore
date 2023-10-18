@@ -1,7 +1,7 @@
 ### C# ###
 #launch.json folder
 .vscode/
-.bin/
-.obj/
+bin/
+obj/
 Mankala.csproj
 *.DS_Store
