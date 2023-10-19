@@ -20,7 +20,7 @@ public class MankalaV1Bord : Bord
         this.aantal_thuiskuiltjes = aantal_thuiskuiltjes;
         Kuiltjes = new Kuiltje[rijen, kuiltjes_per_rij];
         ThuisKuiltjes = new List<ThuisKuiltje>();
-        fillBord(4);
+        fillBord(1);
     }
     private void fillBord(int aantal_steentjes)
     { // V1 heeft in elk Kuiltje 4 steentjes

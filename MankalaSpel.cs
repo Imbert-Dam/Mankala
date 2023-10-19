@@ -18,25 +18,53 @@ public abstract class MankalaSpel
     protected abstract void bordSettings();
     public virtual void Zet(int kuiltje)
     {
-        current_player= state.speler;
-        int aantalsteentjes = Speelbord.Kuiltjes[current_player,kuiltje-1].steentjes;
+        int current_row = current_player-1;
+        int current_kuiltje = kuiltje-1;
+        int aantalsteentjes = Speelbord.Kuiltjes[current_row , current_kuiltje].steentjes;
+        Speelbord.Kuiltjes[current_row , current_kuiltje].VerwijderSteentjes();
+        for (int i = 0; i < aantalsteentjes; i++)
+        {
+            current_kuiltje+=1;
+            if(buitenArray(current_kuiltje) || tegenstanderThuisKuiltje(Speelbord.Kuiltjes[current_row , current_kuiltje]))
+            {
+                current_kuiltje = 0;
+                current_row = state.getOtherPlayer(current_row+1)-1;
+            }
+            Speelbord.Kuiltjes[current_row , current_kuiltje].AddSteentje();
+
+        } // misschien methode
+        ZetResultaat();
+        updatePlayer();
+        CheckWin();
+        
+    }
+    protected virtual bool buitenArray(int kuiltje)
+    {
+        return kuiltje >= n_kuiltjes_player;
+    }
+    protected virtual bool tegenstanderThuisKuiltje(Kuiltje k)
+    {
+        return k.speler != current_player && k.GetType()==typeof(ThuisKuiltje);
+    }
+    public virtual void updatePlayer()
+    {
+        state.nextPlayer();
+        current_player = state.speler;
     }
     public abstract void ZetResultaat();
-    public bool isWinst()
+    public int winnendeSpeler()
     {
-        int winnaar = state.spelerGewonnen;
-        if (winnaar != 0)
-        {
-            current_player = winnaar; //store winnaar in currentPlayer
-            return true;
-        }
-        return false;
+        return state.spelerGewonnen;
     }
-    public abstract bool CheckWin();
+    public abstract void CheckWin();
 
     public virtual string bordNaarString()
     {
         return Speelbord.ToString();
+    }
+    public virtual bool nietLeeg(int input)
+    {
+        return Speelbord.Kuiltjes[current_player-1 , input-1].steentjes != 0;
     }
 }
 
@@ -56,11 +84,37 @@ public class MankalaV1 : MankalaSpel
 
     public override void ZetResultaat()
     {
-        throw new NotImplementedException();
+        
     }
 
-    public override bool CheckWin()
+    public override void CheckWin() //naam aanpassen naar update winner
     {
-        throw new NotImplementedException();
+        for (int i = 0; i < n_kuiltjes_player-1; i++) //TODO aantal thuis kuiltjes = 1
+        {
+            if(Speelbord.Kuiltjes[current_player-1 , i].steentjes != 0)
+            {
+                return;
+            }
+        }
+        int speler_1_score = 0;
+        int speler_2_score = 0;
+        foreach (ThuisKuiltje tk in Speelbord.ThuisKuiltjes)
+        {
+            if(tk.speler == 1)
+            {
+                speler_1_score += tk.steentjes;
+            }
+            else
+            {
+                speler_2_score += tk.steentjes;
+            }
+        }
+        if(speler_1_score>speler_2_score)
+        {
+            state.spelerGewonnen = 1;
+        }
+        else state.spelerGewonnen = 2;
+        
+
     }
 }

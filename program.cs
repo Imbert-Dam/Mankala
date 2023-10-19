@@ -17,15 +17,14 @@ public static class GameManager
 
     public static void gameLoop()
     {
-        while(!MankalaSpel.isWinst())
+        while(MankalaSpel.winnendeSpeler() == 0)
         {
             Console.WriteLine(Display());
             int input = inputLezer();
-            Console.WriteLine(input);
-            break;
+            MankalaSpel.Zet(input);
 
         }
-        Console.WriteLine($"Speler {MankalaSpel.current_player} heeft gewonnen!");
+        Console.WriteLine($"Speler {MankalaSpel.winnendeSpeler()} heeft gewonnen!");
     }
 
     // static bool isWinst() kunnen we in MankalaSpel doen
@@ -53,9 +52,9 @@ public static class GameManager
     {
         Console.WriteLine($"Wat is speler's {MankalaSpel.current_player} zet?");
         string? input = Console.ReadLine();
-        if(input!= null && int.TryParse(input, out int nummer))
+        if(input != null && int.TryParse(input, out int nummer))
         {
-            if(bestaandKuiltje(nummer))
+            if(bestaandKuiltje(nummer) && MankalaSpel.nietLeeg(nummer))
             {
                 return nummer;
             }

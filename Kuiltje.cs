@@ -1,3 +1,5 @@
+using System.Runtime.Intrinsics.X86;
+
 public abstract class Kuiltje
 {
     public Kuiltje(int steentjes, int speler)
@@ -9,6 +11,10 @@ public abstract class Kuiltje
     public int speler;
     public int steentjes; // Je zei hier Getter, maar miss beter gwn zo? We moeten hem ook kunnen setten namelijk
 
+    public virtual void VerwijderSteentjes()
+    {
+        steentjes = 0;
+    }
     public abstract void AddSteentje();
 }
 
@@ -43,12 +49,5 @@ public class BordKuiltje : Kuiltje
     {
         steentjes += 1;
         // TODO nog meer logic i presume
-    }
-
-    public int VerwijderSteentjes()
-    {
-        int oudeHoeveelheid = steentjes;
-        steentjes = 0;
-        return oudeHoeveelheid;
     }
 }

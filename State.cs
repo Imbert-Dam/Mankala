@@ -28,13 +28,10 @@ public class State
     }
     public void nextPlayer()
     {
-        if (speler == 1)
-        {
-            this.speler = 2;
-        }
-        else
-        {
-            this.speler = 1;
-        }
+        this.speler = getOtherPlayer(speler);
+    }
+    public int getOtherPlayer(int p1)
+    {
+        return (p1 == 1) ? 2 : 1;
     }
 }
