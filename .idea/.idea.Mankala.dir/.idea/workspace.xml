@@ -8,11 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68960fa8-60e3-4cd3-bd35-670619597662" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Mankala.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Mankala.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bord.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Kuiltje.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Kuiltje.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MankalaSpel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MankalaSpel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/State.cs" beforeDir="false" afterPath="$PROJECT_DIR$/State.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +20,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2Wx0gaycnCOQQiO0pFtY8tVzS37" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -40,13 +38,14 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\Menee\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
-      "C:\\Users\\Menee\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
-      "C:\\Users\\Menee\\AppData\\Local\\Symbols\\src"
+      "/home/lukadv/.config/JetBrains/Rider2023.2/resharper-host/DecompilerCache",
+      "/home/lukadv/.config/JetBrains/Rider2023.2/resharper-host/SourcesCache",
+      "/home/lukadv/.local/share/Symbols/src"
     ]
   }
 }]]></component>
@@ -79,6 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1697659036654</updated>
       <workItem from="1697659038681" duration="1574000" />
+      <workItem from="1697706457772" duration="3050000" />
     </task>
     <servers />
   </component>
