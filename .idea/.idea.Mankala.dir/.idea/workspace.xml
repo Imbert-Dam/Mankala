@@ -10,7 +10,6 @@
     <list default="true" id="68960fa8-60e3-4cd3-bd35-670619597662" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Mankala.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Mankala.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Kuiltje.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Kuiltje.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +77,7 @@
       <option name="presentableId" value="Default" />
       <updated>1697659036654</updated>
       <workItem from="1697659038681" duration="1574000" />
-      <workItem from="1697706457772" duration="3050000" />
+      <workItem from="1697706457772" duration="4703000" />
     </task>
     <servers />
   </component>

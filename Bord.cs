@@ -6,37 +6,36 @@ public abstract class Bord
     public List<ThuisKuiltje> ThuisKuiltjes; // Moet miss Kuiltjes type zijn
     public int rijen;
     public int kuiltjes_per_rij;
+    public int aantal_thuiskuiltjes;
 }
 
 public class MankalaV1Bord : Bord
 {
 
-    public MankalaV1Bord(int rijen, int kuiltjes_per_rij)
+    public MankalaV1Bord(int rijen, int kuiltjes_per_rij, int aantal_thuiskuiltjes = 2)
     {
         // Maak bord met bepaalde hvh kuiltjes
         this.rijen = rijen;
         this.kuiltjes_per_rij = kuiltjes_per_rij;
-        this.Kuiltjes = new Kuiltje[rijen, kuiltjes_per_rij];
-        this.ThuisKuiltjes = new List<ThuisKuiltje>();
-        fillBord();
+        this.aantal_thuiskuiltjes = aantal_thuiskuiltjes;
+        Kuiltjes = new Kuiltje[rijen, kuiltjes_per_rij];
+        ThuisKuiltjes = new List<ThuisKuiltje>();
+        fillBord(4);
     }
-    private void fillBord()
+    private void fillBord(int aantal_steentjes)
     { // V1 heeft in elk Kuiltje 4 steentjes
-
         
-        for (int kolom = 0; kolom < Kuiltjes.GetLength(0); kolom++)
+        for (int rij = 0; rij < rijen; rij++)
         {
-            for (int rij = 0; rij < Kuiltjes.GetLength(1); rij++)
+            for (int kolom = 0; kolom < kuiltjes_per_rij - 1; kolom++)
             {
-                if (Kuiltjes[kolom, rij].GetType() == typeof(ThuisKuiltje)) // https://stackoverflow.com/questions/3561202/check-if-instance-is-of-a-type
-                {
-                    Kuiltjes[kolom, rij] = new ThuisKuiltje(0, kolom + 1);
-                    continue;
-                }
-
-                Kuiltjes[kolom, rij] = new BordKuiltje(4, kolom + 1);
-
+                Kuiltjes[rij, kolom] = new BordKuiltje(aantal_steentjes, rij + 1);
             }
+            
+            ThuisKuiltje tempThuis = new ThuisKuiltje(0, rij + 1);
+            Kuiltjes[rij, kuiltjes_per_rij - 1] = tempThuis;
+            ThuisKuiltjes.Append(tempThuis);
+
         }
     }
 
@@ -47,14 +46,18 @@ public class MankalaV1Bord : Bord
         // volgorde van mankala (arab style)
         StringBuilder sb = new StringBuilder();
         
-        for (int rij = 0; rij < Kuiltjes.GetLength(1); rij++)
+        for (int rij = 0; rij < rijen; rij++)
         {
-            for (int kolom = 0; kolom < Kuiltjes.GetLength(0); kolom++)
+            for (int kolom = 0; kolom < kuiltjes_per_rij; kolom++)
             {
-                sb.Append(Kuiltjes[kolom, rij]);
+                sb.Append(Kuiltjes[kolom, rij].steentjes);
+                sb.Append("|");
+                
             }
-        }
 
+            sb.Append("\n");
+        }
+        
         return sb.ToString();
     }
 }
