@@ -47,11 +47,11 @@ public class MankalaV1Bord : Bord
         // volgorde van mankala (arab style)
         StringBuilder sb = new StringBuilder();
         
-        for (int rij = 0; rij < Kuiltjes.GetLength(1); rij++)
+        for (int rij = 0; rij < rijen; rij++)
         {
-            for (int kolom = 0; kolom < Kuiltjes.GetLength(0); kolom++)
+            for (int kolom = 0; kolom < kuiltjes_per_rij; kolom++)
             {
-                sb.Append(Kuiltjes[kolom, rij]);
+                sb.Append(Kuiltjes[kolom, rij].steentjes);
             }
         }
 

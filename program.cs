@@ -46,7 +46,7 @@ public static class GameManager
     static void Display()
     {
         // Interact met Forms later, nu even console.log
-        MankalaSpel.ToString(); // Zo doen? En dan ToString een definitie geven in Bord
+        MankalaSpel.bordNaarString(); // Zo doen? En dan ToString een definitie geven in Bord
     }
 
     static int inputLezer()
