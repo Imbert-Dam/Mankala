@@ -30,6 +30,11 @@ public abstract class MankalaSpel
         return false;
     }
     public abstract bool CheckWin();
+
+    public virtual string bordNaarString()
+    {
+        return Speelbord.ToString();
+    }
 }
 
 public class MankalaV1 : MankalaSpel

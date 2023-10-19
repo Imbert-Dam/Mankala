@@ -39,7 +39,7 @@ public class MankalaV1Bord : Bord
         // volgorde van mankala (arab style)
         StringBuilder sb = new StringBuilder();
         
-        for (int rij = 0; rij < rijen; rij++) // TODO rijen definieren
+        for (int rij = 0; rij < 7; rij++) // TODO rijen definieren
         {
             for (int kolom = 0; kolom < Kuiltjes.GetLength(0); kolom++)
             {
