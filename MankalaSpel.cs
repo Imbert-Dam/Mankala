@@ -41,7 +41,7 @@ public class MankalaV1 : MankalaSpel
 {
      protected override Bord GetBord()
      {
-         return new MankalaV1Bord();
+        return new MankalaV1Bord(2,7);
      }
 
 
