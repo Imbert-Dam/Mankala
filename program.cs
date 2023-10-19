@@ -19,7 +19,7 @@ public static class GameManager
     {
         while(!MankalaSpel.isWinst())
         {
-            Display();
+            Console.WriteLine(Display());
             int input = inputLezer();
             Console.WriteLine(input);
             break;
@@ -43,10 +43,10 @@ public static class GameManager
         
     }
 
-    static void Display()
+    static string Display()
     {
         // Interact met Forms later, nu even console.log
-        MankalaSpel.bordNaarString(); // Zo doen? En dan ToString een definitie geven in Bord
+        return MankalaSpel.bordNaarString(); // Zo doen? En dan ToString een definitie geven in Bord
     }
 
     static int inputLezer()
