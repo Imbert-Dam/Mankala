@@ -5,3 +5,4 @@ bin/
 obj/
 Mankala.csproj
 *.DS_Store
+*.xml
