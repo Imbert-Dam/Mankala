@@ -39,11 +39,8 @@ public class MankalaV1Bord : Bord
         }
     }
 
-    public override string ToString() // Heb ik hier toegevoegd
+    public override string ToString()
     {
-        // even kijken hoe we die 2d array willen representeren, daarnaast kijken of 
-        // we het in de volgorde van links naar rechts doen, zoals men leest, of in
-        // volgorde van mankala (arab style)
         StringBuilder sb = new StringBuilder();
         
         for (int rij = 0; rij < rijen; rij++)
