@@ -47,11 +47,12 @@ public class MankalaV1Bord : Bord
         {
             for (int kolom = 0; kolom < kuiltjes_per_rij; kolom++)
             {
-                sb.Append(Kuiltjes[kolom, rij].steentjes);
                 sb.Append("|");
+                sb.Append(Kuiltjes[rij, kolom].steentjes);
+                
             }
 
-            sb.Append("\n");
+            sb.Append("|\n");
         }
         
         return sb.ToString();
