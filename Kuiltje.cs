@@ -1,6 +1,12 @@
 public abstract class Kuiltje
 {
-    private int speler;
+    public Kuiltje(int steentjes, int speler)
+    {
+        this.steentjes = steentjes;
+        this.speler = speler;
+
+    }
+    public int speler;
     public int steentjes; // Je zei hier Getter, maar miss beter gwn zo? We moeten hem ook kunnen setten namelijk
 
     public abstract void AddSteentje();
@@ -8,7 +14,7 @@ public abstract class Kuiltje
 
 public class ThuisKuiltje : Kuiltje
 {
-    public ThuisKuiltje() : base()
+    public ThuisKuiltje(int steentjes, int speler) : base(steentjes, speler)
     {
     }
 
@@ -29,7 +35,7 @@ public class ThuisKuiltje : Kuiltje
 
 public class BordKuiltje : Kuiltje
 {
-    public BordKuiltje() : base()
+    public BordKuiltje(int steentjes, int speler) : base(steentjes, speler)
     {
     }
 
@@ -38,5 +44,11 @@ public class BordKuiltje : Kuiltje
         steentjes += 1;
         // TODO nog meer logic i presume
     }
-    //TODO deze ook een AddSteentjes? Hebben we eigk wel nodig als we het bord initializeren
+
+    public int VerwijderSteentjes()
+    {
+        int oudeHoeveelheid = steentjes;
+        steentjes = 0;
+        return oudeHoeveelheid;
+    }
 }
