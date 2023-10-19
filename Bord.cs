@@ -52,7 +52,6 @@ public class MankalaV1Bord : Bord
             {
                 sb.Append(Kuiltjes[kolom, rij].steentjes);
                 sb.Append("|");
-                
             }
 
             sb.Append("\n");

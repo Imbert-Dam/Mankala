@@ -19,12 +19,13 @@ public static class GameManager
     {
         while(!MankalaSpel.isWinst())
         {
+            Display();
             int input = inputLezer();
             Console.WriteLine(input);
             break;
 
         }
-        Console.WriteLine($"Speler {MankalaSpel.state.spelerGewonnen} heeft gewonnen!");
+        Console.WriteLine($"Speler {MankalaSpel.current_player} heeft gewonnen!");
     }
 
     // static bool isWinst() kunnen we in MankalaSpel doen
@@ -45,29 +46,26 @@ public static class GameManager
     static void Display()
     {
         // Interact met Forms later, nu even console.log
-        MankalaSpel.Speelbord.ToString(); // Zo doen? En dan ToString een definitie geven in Bord
+        MankalaSpel.bordNaarString(); // Zo doen? En dan ToString een definitie geven in Bord
     }
 
     static int inputLezer()
     {
-        Display();
-        Console.WriteLine($"Wat is speler's {MankalaSpel.state.speler} zet?");
-        string input = Console.ReadLine();
-        // if (input == null){
-        //     return inputLezer(); // Ik ben niet bekend met returnen van methodes
-        // }
-        char k = input[0]; //uitkijken voor null reference
-        if(Char.IsNumber(k))
+        Console.WriteLine($"Wat is speler's {MankalaSpel.current_player} zet?");
+        string? input = Console.ReadLine();
+        if(input!= null && int.TryParse(input, out int nummer))
         {
-            int nummer = int.Parse(k.ToString());
-            if(nummer - ((MankalaSpel.Speelbord.Kuiltjes.Length - MankalaSpel.Speelbord.ThuisKuiltjes.Count)/2)<=0)
+            if(bestaandKuiltje(nummer))
             {
                 return nummer;
             }
         }
         Console.WriteLine("incorrect input....");
-        return inputLezer();
+        return inputLezer();   
+    }
 
-        
+    static bool bestaandKuiltje(int kuiltje)
+    {
+        return kuiltje>0 && kuiltje <MankalaSpel.n_kuiltjes_player;
     }
 }
