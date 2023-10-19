@@ -25,7 +25,7 @@ public static class GameManager
             break;
 
         }
-        Console.WriteLine($"Speler {MankalaSpel.state.spelerGewonnen} heeft gewonnen!");
+        Console.WriteLine($"Speler {MankalaSpel.current_player} heeft gewonnen!");
     }
 
     // static bool isWinst() kunnen we in MankalaSpel doen
@@ -46,7 +46,7 @@ public static class GameManager
     static void Display()
     {
         // Interact met Forms later, nu even console.log
-        MankalaSpel.Speelbord.ToString(); // Zo doen? En dan ToString een definitie geven in Bord
+        MankalaSpel.ToString(); // Zo doen? En dan ToString een definitie geven in Bord
     }
 
     static int inputLezer()
