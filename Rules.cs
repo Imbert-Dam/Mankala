@@ -1,9 +1,8 @@
 public abstract class Rule
 {
     public abstract (bool,bool) startRuleProcedure(Bord bord, State state, int row, int column);
-    // Returnen van Bord wellicht niet nodig; bool is voor nieuwe zet -> meestal false
-    // Als die true is zal het spel opnieuw regels checken op het nieuwe Bord
-    protected abstract void ruleResultaat(Bord bord, State state);
+    // BOOL, BOOL -> check_rules, swap_player -> of de verdere regels nog gecheckt moeten worden, of de beurt door moet gaan
+    protected abstract void ruleResultaat(Bord bord, State state, int row, int column);
 }
 
 class ThuiskuiltjeSpeler : Rule
@@ -15,21 +14,19 @@ class ThuiskuiltjeSpeler : Rule
     public override (bool,bool) startRuleProcedure(Bord bord, State state, int row, int column)
     {
         // Check of regel daadwerkelijk van toepassing is
-        Kuiltje eindkuiltje = bord.Kuiltjes[row,column];
-        if ((eindkuiltje.speler == state.speler) && (eindkuiltje.GetType()==typeof(ThuisKuiltje)))
+        Kuiltje eindKuiltje = bord.Kuiltjes[row,column];
+        if ((eindKuiltje.speler == state.speler) && (eindKuiltje.GetType()==typeof(ThuisKuiltje)))
         {
-            ruleResultaat(bord, state);
-            return false;
+            ruleResultaat(bord, state, row, column);
+            return (false, true);
         }
-
-        return false;
+        return (true, false);
     }
 
-    protected override void ruleResultaat(Bord bord, State state)
+    protected override void ruleResultaat(Bord bord, State state, int row, int column)
     {
-        // Doe dingen met bord
+        // Letterlijk niets?!
     }
-    
     
 }
 
@@ -50,7 +47,7 @@ class NietLeegKuiltjeSpeler : Rule
         }
     }
 
-    protected override void ruleResultaat(Bord bord, State state)
+    protected override void ruleResultaat(Bord bord, State state, int row, int column)
     {
         // Doe dingen met bord        
     }
@@ -59,23 +56,36 @@ class NietLeegKuiltjeSpeler : Rule
 
 class TegenoverNietLeeg : Rule
 {
-    /* De laatste steen komt in een leeg kuiltje van de speler. Het kuiltje van de tegenspeler daartegenover is niet leeg. De speler pakt de laatst uitgestrooide steen plus
-    de stenen in het kuiltje van de tegenspeler ertegenover, en voegt ze toe aan zijn
-    thuiskuiltje. De zet is over, de beurt is over, de tegenspeler is aan de beurt.
+    /* De laatste steen komt in een leeg kuiltje van de speler. Het kuiltje van de tegenspeler daartegenover is niet leeg.
+     De speler pakt de laatst uitgestrooide steen plus de stenen in het kuiltje van de tegenspeler ertegenover, en voegt 
+     ze toe aan zijn thuiskuiltje. De zet is over, de beurt is over, de tegenspeler is aan de beurt.
     */
     public override (bool, bool) startRuleProcedure(Bord bord, State state, int row, int column)
     {
         // Check of regel daadwerkelijk van toepassing is
-        
-        if (true)
+        Kuiltje eindKuiltje = bord.Kuiltjes[row,column];
+        if (eindKuiltje.speler != state.speler || eindKuiltje.GetType()==typeof(ThuisKuiltje))// Eindkuiltje is van oppo of is een thuiskuiltje
         {
-            ruleResultaat(bord, state);
-            return false;
+            return (true, false);
         }
+        // Dus eindkuiltje is van speler EN is type Bordkuiltje
+        if (eindKuiltje.steentjes != 1) 
+        {
+            return (true, false);
+        }
+        // Was dus voor de zet leeg
+        Kuiltje tegenoverKuiltje = bord.Kuiltjes[state.getOtherPlayer(state.speler) - 1, column];// Kuiltje tegenover
+        if (tegenoverKuiltje.steentjes == 0)
+        {
+            ruleResultaat(bord, state, row, column);
+            return (false, true);
+        }
+        return (true, false);
     }
 
-    protected override void ruleResultaat(Bord bord, State state)
+    protected override void ruleResultaat(Bord bord, State state, int row, int column)
     {
-        throw new NotImplementedException();
+        
+        
     }
 }
