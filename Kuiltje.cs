@@ -13,7 +13,11 @@ public abstract class Kuiltje
     {
         Steentjes = 0;
     }
-    public abstract void AddSteentje();
+
+    public void AddSteentje()
+    {
+        Steentjes += 1;
+    }
 }
 
 public class ThuisKuiltje : Kuiltje
@@ -21,11 +25,7 @@ public class ThuisKuiltje : Kuiltje
     public ThuisKuiltje(int steentjes, int speler) : base(steentjes, speler)
     {
     }
-
-    public override void AddSteentje()
-    {
-        Steentjes += 1;
-    }
+    
     public void AddSteentjes(int amount)
     {
         for (int i = 0; i < amount; i++)
@@ -39,10 +39,6 @@ public class BordKuiltje : Kuiltje
 {
     public BordKuiltje(int steentjes, int speler) : base(steentjes, speler)
     {
-    }
-    public override void AddSteentje()
-    {
-        Steentjes += 1;
     }
     
 }
