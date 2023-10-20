@@ -17,7 +17,7 @@ class ThuiskuiltjeSpeler : Rule
         Kuiltje eindKuiltje = bord.Kuiltjes[row,column];
         if ((eindKuiltje.speler == state.speler) && (eindKuiltje.GetType()==typeof(ThuisKuiltje)))
         {
-            ruleResultaat(bord, state);
+            ruleResultaat(bord, state, row, column);
             return (false,false);
         }
 
@@ -44,7 +44,7 @@ class NietLeegKuiltje : Rule
         Kuiltje eindkuiltje = bord.Kuiltjes[row,column];
         if (eindkuiltje.GetType()==typeof(BordKuiltje)&&eindkuiltje.steentjes>1)
         {
-            ruleResultaat(bord, state);
+            ruleResultaat(bord, state, row, column);
         }
         return (true,false);
     }
@@ -64,13 +64,13 @@ class LeegTegenstander : Rule
         Kuiltje eindkuiltje = bord.Kuiltjes[row,column];
         if (eindkuiltje.speler!=state.speler&&eindkuiltje.steentjes==1)
         {
-            ruleResultaat(bord, state);
+            ruleResultaat(bord, state, row, column);
             return (false,true);
         }
         return (true,false);
     }
 
-    protected override void ruleResultaat(Bord bord, State state)
+    protected override void ruleResultaat(Bord bord, State state, int row, int column)
     {
         throw new NotImplementedException();
     }
