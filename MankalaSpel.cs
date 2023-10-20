@@ -2,88 +2,89 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 public abstract class MankalaSpel
 {
-    public State state;
-    public Bord Speelbord;
-    protected WinChecker win_check;
-    public int current_player; //stores huidige speler maar ook winnaar als afgelopen
-    public int n_kuiltjes_player;
-    public int n_rows_player;
-    public List<Rule> regels; // Is voor elke variant anders
+    private State _state;
+    private Bord _speelbord;
+    private WinChecker _winChecker;
+    public int HuildigeSpeler; // Stores huidige Speler maar ook winnaar als afgelopen
+    public int AantalKuiltjesSpeler;
+    protected int AantalRijenSpeler;
+    protected List<Regel> Regels; // Content is voor elke variant anders
 
-    public MankalaSpel()
+    protected MankalaSpel()
     {
-        bordSettings();
-        Speelbord = GetBord();
-        state = State.getInstance();
-        win_check = getWinChecker();
-        current_player = state.speler;
+        SetBordSettings();
+        _speelbord = GetBord();
+        _state = State.GetInstance();
+        _winChecker = GetWinChecker();
+        HuildigeSpeler = _state.Speler;
     }
     protected abstract Bord GetBord();
-    protected abstract void bordSettings();
-    public (int,int) Zet(int current_row, int current_kuiltje)
+    protected abstract void SetBordSettings();
+    private (int,int) Zet(int huildigeRij, int huildigKuiltje)
     {
-        int aantalsteentjes = Speelbord.Kuiltjes[current_row , current_kuiltje].steentjes;
-        Speelbord.Kuiltjes[current_row , current_kuiltje].VerwijderSteentjes();
-        for (int i = 0; i < aantalsteentjes; i++)
+        int aantalSteentjes = _speelbord.Kuiltjes[huildigeRij , huildigKuiltje].Steentjes;
+        _speelbord.Kuiltjes[huildigeRij, huildigKuiltje].VerwijderSteentjes();
+        // Standaard behaviour: ze stuk voor stuk, tegen de klok in, met een tegelijk in de kuiltjes van de Speler zelf en van
+        // de tegenstander te strooien
+        for (int i = 0; i < aantalSteentjes; i++)
         {
-            current_kuiltje+=1;
-            if(buitenArray(current_kuiltje) || tegenstanderThuisKuiltje(Speelbord.Kuiltjes[current_row , current_kuiltje]))
+            huildigKuiltje += 1;
+            if (BuitenArray(huildigKuiltje) || TegenstanderThuisKuiltje(_speelbord.Kuiltjes[huildigeRij , huildigKuiltje]))
             {
-                current_kuiltje = 0;
-                current_row = state.getOtherPlayer(current_row+1)-1;
+                huildigKuiltje = 0;
+                huildigeRij = _state.GetAndereSpeler(huildigeRij + 1) - 1;
             }
-            Speelbord.Kuiltjes[current_row , current_kuiltje].AddSteentje();
+            _speelbord.Kuiltjes[huildigeRij, huildigKuiltje].AddSteentje();
+        } 
+        return (huildigeRij, huildigKuiltje);
+    }
+    private bool BuitenArray(int kuiltje)
+    {
+        return kuiltje >= AantalKuiltjesSpeler;
+    }
+    private bool TegenstanderThuisKuiltje(Kuiltje k)
+    {
+        return k.Speler != HuildigeSpeler && k.GetType() == typeof(ThuisKuiltje);
+    }
+    private void UpdateSpeler()
+    {
+        _state.VolgendeSpeler();
+        HuildigeSpeler = _state.Speler;
+    }
 
-        } // misschien methode - sowieso ff comments
-        return(current_row,current_kuiltje);
-    }
-    protected virtual bool buitenArray(int kuiltje)
+    public void ZetResultaat(int kuiltje)
     {
-        return kuiltje >= n_kuiltjes_player;
-    }
-    protected virtual bool tegenstanderThuisKuiltje(Kuiltje k)
-    {
-        return k.speler != current_player && k.GetType()==typeof(ThuisKuiltje);
-    }
-    public virtual void updatePlayer()
-    {
-        state.nextPlayer();
-        current_player = state.speler; // current_player is eigk heel irritant; miss gwn overal state.speler gebruiken?
-    }
-
-    public virtual void ZetResultaat(int kuiltje) // Hoeft niet echt virtual te zijn eigk -> tenzij we later sjit moeten doen
-    {
-        int current_row = current_player-1;
-        int current_kuiltje = kuiltje-1;
-        bool check_rules = true;
-        bool change_player = true;
-        while (check_rules)
+        int huildigeRij = HuildigeSpeler - 1;
+        int huildigKuiltje = kuiltje - 1;
+        bool checkRegels = true;
+        bool swapSpeler = true;
+        while (checkRegels)
         {
-            (int row,int column) = Zet(current_row,current_kuiltje);
-            foreach (Rule regel in regels)
+            (int rij, int kolom) = Zet(huildigeRij, huildigKuiltje);
+            foreach (Regel regel in Regels)
             {
-                (check_rules,change_player) = regel.startRuleProcedure(Speelbord, state ,row, column);
-                if (!check_rules) break;
+                (checkRegels, swapSpeler) = regel.StartRegelProcedure(_speelbord, _state, rij, kolom);
+                if (!checkRegels) break;
             }
-            current_row=row;
-            current_kuiltje=column;
+            huildigeRij = rij;
+            huildigKuiltje = kolom;
         }
-        if (change_player) updatePlayer();
-        state.spelerGewonnen = win_check.spelWinstSpeler(Speelbord,state.speler);
+        if (swapSpeler) UpdateSpeler();
+        _state.SpelerGewonnen = _winChecker.spelWinstSpeler(_speelbord, _state.Speler);
     }
-    public int winnendeSpeler()
+    public int GetWinnendeSpeler()
     {
-        return state.spelerGewonnen;
+        return _state.SpelerGewonnen;
     }
-    public abstract WinChecker getWinChecker();
+    protected abstract WinChecker GetWinChecker();
 
-    public virtual string bordNaarString()
+    public string BordNaarString()
     {
-        return Speelbord.ToString();
+        return _speelbord.ToString(); // possible NPE aaaaaaa
     }
-    public virtual bool nietLeeg(int input)
+    public bool KuiltjeNietLeeg(int input)
     {
-        return Speelbord.Kuiltjes[current_player-1 , input-1].steentjes != 0;
+        return _speelbord.Kuiltjes[HuildigeSpeler-1, input - 1].Steentjes != 0;
     }
 }
 
@@ -92,7 +93,7 @@ public class MankalaV1 : MankalaSpel
     public MankalaV1()
     {   
         // Voor andere varianten van V1 kunnen deel van deze rules gebruikt worden, of nieuwe worden gemaakt
-        regels = new List<Rule>
+        Regels = new List<Regel>
         {
             new ThuiskuiltjeSpeler(),
             new NietLeegKuiltje(),
@@ -102,20 +103,20 @@ public class MankalaV1 : MankalaSpel
         };
     }
 
-    protected override void bordSettings()
+    protected override void SetBordSettings()
     {
-        n_rows_player = 1;
-        n_kuiltjes_player = 7;
+        AantalRijenSpeler = 1;
+        AantalKuiltjesSpeler = 7;
     }
 
     protected override Bord GetBord()
     {
-        int aantal_spelers = 2;
-        return new MankalaV1Bord(n_rows_player * aantal_spelers , n_kuiltjes_player);
+        int aantalSpelers = 2; // Wordt nooit echt veranderd but cant hurt
+        return new MankalaV1Bord(AantalRijenSpeler * aantalSpelers , AantalKuiltjesSpeler);
     }
 
-    public override WinChecker getWinChecker()
+    protected override WinChecker GetWinChecker()
     {
-        return new WinCheckerV1(n_kuiltjes_player);
+        return new WinCheckerV1(AantalKuiltjesSpeler);
     }
 }

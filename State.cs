@@ -1,36 +1,34 @@
 public class State
-{//singleton???
-    public int speler;
-    // public bool spelGaande; kan alleen met int spelerGewonnen
-    public int spelerGewonnen;
+{ // Singleton
+    public int Speler;
+    public int SpelerGewonnen;
     private static State _instance;
     private static readonly object _instanceLock = new();
 
     private State()
     {
-        this.speler = 1;
-        // this.spelGaande = true;
-        this.spelerGewonnen = 0;
+        Speler = 1;
+        SpelerGewonnen = 0;
     }
-    public static State getInstance()
+    public static State GetInstance()
     {
         if(_instance == null)
         {
             lock (_instanceLock) 
-            { // prevents multiple threads from creating an instance of Printer
+            { // een enkele thread kan maar State maken
                 if (_instance == null) 
-                { // it will be only used by the first thread
+                { // nm de eerste
                     _instance = new State();
                 }
             }
         }
         return _instance;
     }
-    public void nextPlayer()
+    public void VolgendeSpeler()
     {
-        this.speler = getOtherPlayer(speler);
+        Speler = GetAndereSpeler(Speler);
     }
-    public int getOtherPlayer(int p1)
+    public int GetAndereSpeler(int p1)
     {
         return (p1 == 1) ? 2 : 1;
     }

@@ -27,7 +27,7 @@ public class WinCheckerV1 : WinChecker
     {
         for (int i = 0; i < n_kuiltjes_player-1; i++) //TODO aantal thuis kuiltjes = 1
         {
-            if(Speelbord.Kuiltjes[current_player-1 , i].steentjes != 0)
+            if(Speelbord.Kuiltjes[current_player-1 , i].Steentjes != 0)
             {
                 return true;
             }
@@ -41,13 +41,13 @@ public class WinCheckerV1 : WinChecker
         int speler_2_score = 0;
         foreach (ThuisKuiltje tk in Speelbord.ThuisKuiltjes)
         {
-            if(tk.speler == 1)
+            if(tk.Speler == 1)
             {
-                speler_1_score += tk.steentjes;
+                speler_1_score += tk.Steentjes;
             }
             else
             {
-                speler_2_score += tk.steentjes;
+                speler_2_score += tk.Steentjes;
             }
         }
         if      (speler_1_score>speler_2_score)       return 1;

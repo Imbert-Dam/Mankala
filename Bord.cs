@@ -4,56 +4,55 @@ public abstract class Bord
 {
     public Kuiltje[,] Kuiltjes;
     public List<ThuisKuiltje> ThuisKuiltjes;
-    public int rijen;
-    public int kuiltjes_per_rij;
-    public int aantal_thuiskuiltjes;
+    protected int Rijen;
+    protected int KuiltjesPerRij;
+    public int AantalThuiskuiltjes; // unused
 }
 
 public class MankalaV1Bord : Bord
 {
-
-    public MankalaV1Bord(int rijen, int kuiltjes_per_rij, int aantal_thuiskuiltjes = 2)
+    public MankalaV1Bord(int rijen, int kuiltjesPerRij, int aantalThuiskuiltjes = 2)
     {
         // Maak bord met bepaalde hvh kuiltjes
-        this.rijen = rijen;
-        this.kuiltjes_per_rij = kuiltjes_per_rij;
-        this.aantal_thuiskuiltjes = aantal_thuiskuiltjes;
-        Kuiltjes = new Kuiltje[rijen, kuiltjes_per_rij];
+        this.Rijen = rijen;
+        this.KuiltjesPerRij = kuiltjesPerRij;
+        this.AantalThuiskuiltjes = aantalThuiskuiltjes;
+        Kuiltjes = new Kuiltje[rijen, kuiltjesPerRij];
         ThuisKuiltjes = new List<ThuisKuiltje>();
-        fillBord(1);
+        VulBord(1);
     }
-    private void fillBord(int aantal_steentjes)
-    { // V1 heeft in elk Kuiltje 4 steentjes
+    private void VulBord(int aantalSteentjes)
+    { // V1 heeft in elk Kuiltje 4 Steentjes
         
-        for (int rij = 0; rij < rijen; rij++)
+        for (int rij = 0; rij < Rijen; rij++)
         {
-            for (int kolom = 0; kolom < kuiltjes_per_rij - 1; kolom++)
+            for (int kolom = 0; kolom < KuiltjesPerRij - 1; kolom++)
             {
-                Kuiltjes[rij, kolom] = new BordKuiltje(aantal_steentjes, rij + 1);
+                Kuiltjes[rij, kolom] = new BordKuiltje(aantalSteentjes, rij + 1);
             }
             
             ThuisKuiltje tempThuis = new ThuisKuiltje(0, rij + 1);
-            Kuiltjes[rij, kuiltjes_per_rij - 1] = tempThuis;
+            Kuiltjes[rij, KuiltjesPerRij - 1] = tempThuis;
             ThuisKuiltjes.Add(tempThuis);
         }
     }
 
     public override string ToString()
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         
-        for (int rij = 0; rij < rijen; rij++)
+        for (int rij = 0; rij < Rijen; rij++)
         {
-            for (int kolom = 0; kolom < kuiltjes_per_rij; kolom++)
+            for (int kolom = 0; kolom < KuiltjesPerRij; kolom++)
             {
-                sb.Append("|");
-                sb.Append(Kuiltjes[rij, kolom].steentjes);
+                stringBuilder.Append('|');
+                stringBuilder.Append(Kuiltjes[rij, kolom].Steentjes);
                 
             }
 
-            sb.Append("|\n");
+            stringBuilder.Append("|\n");
         }
         
-        return sb.ToString();
+        return stringBuilder.ToString();
     }
 }
