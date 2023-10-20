@@ -34,8 +34,7 @@ public class MankalaV1Bord : Bord
             
             ThuisKuiltje tempThuis = new ThuisKuiltje(0, rij + 1);
             Kuiltjes[rij, kuiltjes_per_rij - 1] = tempThuis;
-            ThuisKuiltjes.Append(tempThuis);
-
+            ThuisKuiltjes.Add(tempThuis);
         }
     }
 

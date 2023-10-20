@@ -2,6 +2,7 @@ public abstract class MankalaSpel
 {
     public State state;
     public Bord Speelbord;
+    protected WinChecker win_check;
     public int current_player; //stores huidige speler maar ook winnaar als afgelopen
     public int n_kuiltjes_player;
     public int n_rows_player;
@@ -12,6 +13,7 @@ public abstract class MankalaSpel
         bordSettings();
         Speelbord = GetBord();
         state = State.getInstance();
+        win_check = getWinChecker();
         current_player = state.speler;
     }
     protected abstract Bord GetBord();
@@ -35,7 +37,7 @@ public abstract class MankalaSpel
         } // misschien methode
         ZetResultaat();
         updatePlayer();
-        CheckWin();
+        state.spelerGewonnen = win_check.spelWinstSpeler(Speelbord,state.speler);
         
     }
     protected virtual bool buitenArray(int kuiltje)
@@ -56,7 +58,7 @@ public abstract class MankalaSpel
     {
         return state.spelerGewonnen;
     }
-    public abstract void CheckWin();
+    public abstract WinChecker getWinChecker();
 
     public virtual string bordNaarString()
     {
@@ -87,34 +89,8 @@ public class MankalaV1 : MankalaSpel
         
     }
 
-    public override void CheckWin() //naam aanpassen naar update winner
+    public override WinChecker getWinChecker()
     {
-        for (int i = 0; i < n_kuiltjes_player-1; i++) //TODO aantal thuis kuiltjes = 1
-        {
-            if(Speelbord.Kuiltjes[current_player-1 , i].steentjes != 0)
-            {
-                return;
-            }
-        }
-        int speler_1_score = 0;
-        int speler_2_score = 0;
-        foreach (ThuisKuiltje tk in Speelbord.ThuisKuiltjes)
-        {
-            if(tk.speler == 1)
-            {
-                speler_1_score += tk.steentjes;
-            }
-            else
-            {
-                speler_2_score += tk.steentjes;
-            }
-        }
-        if(speler_1_score>speler_2_score)
-        {
-            state.spelerGewonnen = 1;
-        }
-        else state.spelerGewonnen = 2;
-        
-
+        return new WinCheckerV1(n_kuiltjes_player);
     }
 }
