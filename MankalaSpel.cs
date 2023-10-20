@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 public abstract class MankalaSpel
 {
     public State state;
@@ -18,10 +20,8 @@ public abstract class MankalaSpel
     }
     protected abstract Bord GetBord();
     protected abstract void bordSettings();
-    public virtual void Zet(int kuiltje)
+    public virtual (int,int) Zet(int current_row, int current_kuiltje)
     {
-        int current_row = current_player-1;
-        int current_kuiltje = kuiltje-1;
         int aantalsteentjes = Speelbord.Kuiltjes[current_row , current_kuiltje].steentjes;
         Speelbord.Kuiltjes[current_row , current_kuiltje].VerwijderSteentjes();
         for (int i = 0; i < aantalsteentjes; i++)
@@ -35,10 +35,7 @@ public abstract class MankalaSpel
             Speelbord.Kuiltjes[current_row , current_kuiltje].AddSteentje();
 
         } // misschien methode - sowieso ff comments
-        ZetResultaat(current_row,current_kuiltje);
-        updatePlayer();
-        state.spelerGewonnen = win_check.spelWinstSpeler(Speelbord,state.speler);
-        
+        return(current_row,current_kuiltje);
     }
     protected virtual bool buitenArray(int kuiltje)
     {
@@ -54,19 +51,25 @@ public abstract class MankalaSpel
         current_player = state.speler; // current_player is eigk heel irritant; miss gwn overal state.speler gebruiken?
     }
 
-    public virtual void ZetResultaat(int row, int collumn) // Hoeft niet echt virtual te zijn eigk -> tenzij we later sjit moeten doen
+    public virtual void ZetResultaat(int kuiltje) // Hoeft niet echt virtual te zijn eigk -> tenzij we later sjit moeten doen
     {
-        bool nieuweZet = true;
-        while (nieuweZet)
+        int current_row = current_player-1;
+        int current_kuiltje = kuiltje-1;
+        bool check_rules = true;
+        bool change_player = true;
+        while (check_rules)
         {
+            (int row,int column) = Zet(current_row,current_kuiltje);
             foreach (Rule regel in regels)
             {
-                bool nieuweZetRegel;
-                nieuweZetRegel = regel.startRuleProcedure(Speelbord, state, row, collumn);
-                nieuweZet = nieuweZetRegel;
-                if (nieuweZetRegel) break;
+                (check_rules,change_player) = regel.startRuleProcedure(Speelbord, state ,row, column);
+                if (!check_rules) break;
             }
+            current_row=row;
+            current_kuiltje=column;
         }
+        if (change_player) updatePlayer();
+        state.spelerGewonnen = win_check.spelWinstSpeler(Speelbord,state.speler);
     }
     public int winnendeSpeler()
     {

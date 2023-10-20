@@ -21,7 +21,7 @@ public static class GameManager
         {
             Console.WriteLine(Display());
             int input = inputLezer();
-            MankalaSpel.Zet(input);
+            MankalaSpel.ZetResultaat(input);
 
         }
         Console.WriteLine($"Speler {MankalaSpel.winnendeSpeler()} heeft gewonnen!");
