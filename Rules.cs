@@ -1,6 +1,6 @@
 public abstract class Rule
 {
-    public abstract bool startRuleProcedure(Bord bord, State state, int row, int collumn);
+    public abstract (bool,bool) startRuleProcedure(Bord bord, State state, int row, int collumn);
     // Returnen van Bord wellicht niet nodig; bool is voor nieuwe zet -> meestal false
     // Als die true is zal het spel opnieuw regels checken op het nieuwe Bord
     protected abstract void ruleResultaat(Bord bord, State state);
@@ -12,7 +12,7 @@ class ThuiskuiltjeSpeler : Rule
     een nieuwe zet doen. Er is geen maximum aan het aantal keer dat een speler achter
     elkaar aan de beurt is
     */
-    public override bool startRuleProcedure(Bord bord, State state, int row, int collumn)
+    public override (bool,bool) startRuleProcedure(Bord bord, State state, int row, int collumn)
     {
         // Check of regel daadwerkelijk van toepassing is
         Kuiltje eindkuiltje = bord.Kuiltjes[row,collumn];
@@ -38,7 +38,7 @@ class NietLeegKuiltjeSpeler : Rule
     met de beurt. Er is geen maximum aan het aantal keren dat in een beurt stenen
     opgepakt kunnen worden.*/
     
-    public override bool startRuleProcedure(Bord bord, State state, int row, int collumn)
+    public override (bool,bool) startRuleProcedure(Bord bord, State state, int row, int collumn)
     {
         // Check of regel daadwerkelijk van toepassing is
         if (true)
