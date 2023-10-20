@@ -67,6 +67,7 @@ public abstract class MankalaSpel
             }
             current_row=row;
             current_kuiltje=column;
+            check_rules =false;
         }
         if (change_player) updatePlayer();
         state.spelerGewonnen = win_check.spelWinstSpeler(Speelbord,state.speler);
@@ -94,9 +95,9 @@ public class MankalaV1 : MankalaSpel
         regels = new List<Rule>
         {
             new ThuiskuiltjeSpeler(),
-            new NietLeegKuiltje(),
+            // new NietLeegKuiltje(),
             new LeegTegenstander(),
-            new TegenoverNietLeeg()
+            // new TegenoverNietLeeg(),
         };
     }
 
