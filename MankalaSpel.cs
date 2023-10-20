@@ -69,7 +69,7 @@ public abstract class MankalaSpel
             current_kuiltje=column;
         }
         if (change_player) updatePlayer();
-        state.spelerGewonnen = win_check.spelWinstSpeler(Speelbord,state.speler);
+        state.spelerGewonnen = win_check.SpelWinstSpeler(Speelbord,state.speler);
     }
     public int winnendeSpeler()
     {
