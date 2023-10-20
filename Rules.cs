@@ -21,7 +21,7 @@ class ThuiskuiltjeSpeler : Rule
             return (false,false);
         }
 
-        return (true,false);
+        return (true,true);
     }
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
@@ -45,8 +45,9 @@ class NietLeegKuiltje : Rule
         if (eindkuiltje.GetType()==typeof(BordKuiltje)&&eindkuiltje.steentjes>1)
         {
             ruleResultaat(bord, state, row, column);
+            return(true,false);
         }
-        return (true,false);
+        return (true,true);
     }
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
@@ -67,7 +68,7 @@ class LeegTegenstander : Rule
             ruleResultaat(bord, state, row, column);
             return (false,true);
         }
-        return (true,false);
+        return (true,true);
     }
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
@@ -89,12 +90,12 @@ class TegenoverNietLeeg : Rule
         Kuiltje eindKuiltje = bord.Kuiltjes[row,column];
         if (eindKuiltje.speler != state.speler || eindKuiltje.GetType()==typeof(ThuisKuiltje))// Eindkuiltje is van oppo of is een thuiskuiltje
         {
-            return (true, false);
+            return (true, true);
         }
         // Dus eindkuiltje is van speler EN is type Bordkuiltje
         if (eindKuiltje.steentjes != 1) 
         {
-            return (true, false);
+            return (true, true);
         }
         // Was dus voor de zet leeg
         Kuiltje tegenoverKuiltje = bord.Kuiltjes[state.getOtherPlayer(state.speler) - 1, column];// Kuiltje tegenover
@@ -103,7 +104,7 @@ class TegenoverNietLeeg : Rule
             ruleResultaat(bord, state, row, column);
             return (false, true);
         }
-        return (true, false);
+        return (true, true);
     }
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
