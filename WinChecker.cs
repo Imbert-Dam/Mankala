@@ -20,14 +20,14 @@ public class WinCheckerV1 : WinChecker
     {
         this.Speelbord = speelbord;
         this.HuidigeSpeler = huidigeSpeler;
-        if(NietLegeKuiltjes()) return 0;
+        if(NietLegeKuiltjes()) return 0; // Cruciale condition
         return BesteSpeler();
     }
     private bool NietLegeKuiltjes()
     {
-        for (int i = 0; i < NumKuiltjesPP-1; i++) //-1 gezien aantal kuiltjes per persoon thuiskuiltjes meerekend.
+        for (int i = 0; i < NumKuiltjesPP - 1; i++) //-1 gezien aantal kuiltjes per persoon thuiskuiltjes meerekend.
         {
-            if(Speelbord.Kuiltjes[HuidigeSpeler-1 , i].Steentjes != 0)
+            if(Speelbord.Kuiltjes[HuidigeSpeler - 1 , i].Steentjes != 0)
             {
                 return true;
             }

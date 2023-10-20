@@ -30,6 +30,6 @@ public class State
     }
     public int GetAndereSpeler(int p1)
     {
-        return (p1 == 1) ? 2 : 1;
+        return (p1 == 1) ? 2 : 1; // ah ternary : als p1==1 dan 2 anders 1
     }
 }

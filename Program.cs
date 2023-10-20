@@ -10,14 +10,15 @@ static class Program
 
 public static class GameManager
 {
-    //singleton strategy??
-    private static MankalaSpel _mankalaSpel = new MankalaV1(); // Enige plek waar we V1 kiezen
+
+    private static MankalaSpel _mankalaSpel = new MankalaV1(); // Enige plek waar we V1 kiezen met dank aan factory methods
     
     public static void GameLoop()
     {
-        // Als GetWinnendeSpeler nog 0 is = geen winnaar, 1 en 2 is winnaar, 3 is gelijkspel 
+        // Als GetWinnendeSpeler nog 0 is = geen winnaar, 1 en 2 is win van die speler, 3 is gelijkspel 
         while(_mankalaSpel.GetWinnendeSpeler() == 0)
         {
+            // Output, lees input, doe die zet
             Console.WriteLine(Display());
             int input = InputLezer();
             _mankalaSpel.ZetResultaat(input);
@@ -35,16 +36,17 @@ public static class GameManager
         
     }
 
-    static string Display()
+    private static string Display()
     {
-        // Interact met Forms later
+        // Interact met Forms later ipv dit
         return _mankalaSpel.BordNaarString(); 
     }
 
-    static int InputLezer()
+    private static int InputLezer()
     {
         Console.WriteLine($"Wat is Speler's {_mankalaSpel.HuildigeSpeler} zet?");
         string? input = Console.ReadLine();
+        //Check of input geldig is en of die kuil niet leeg is
         if(input != null && int.TryParse(input, out int nummer))
         {
             if(BestaandKuiltje(nummer) && _mankalaSpel.KuiltjeNietLeeg(nummer))
@@ -56,8 +58,9 @@ public static class GameManager
         return InputLezer();   
     }
 
-    static bool BestaandKuiltje(int kuiltje)
+    private static bool BestaandKuiltje(int kuiltje)
     {
+        // Hulpmethode zoals zo veel
         return kuiltje > 0 && kuiltje < _mankalaSpel.AantalKuiltjesSpeler;
     }
 }

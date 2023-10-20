@@ -89,6 +89,7 @@ class TegenoverLeeg : Regel
      * De zet is over, de beurt is over: de tegenspeler is aan de beurt. */
     public override (bool, bool) StartRegelProcedure(Bord bord, State state, int row, int column)
     {
+        // Nogal veel conditions, eerste 2 zijn daarom guard clauses
         Kuiltje eindKuiltje = bord.Kuiltjes[row,column];
         if (eindKuiltje.Speler != state.Speler || eindKuiltje.GetType() == typeof(ThuisKuiltje)) // Eindkuiltje is van oppo of is een thuiskuiltje
         {
@@ -125,6 +126,7 @@ class TegenoverNietLeeg : Regel
     */
     public override (bool, bool) StartRegelProcedure(Bord bord, State state, int row, int column)
     {
+        // Nogal veel conditions, eerste 2 zijn daarom guard clauses
         // Check of regel daadwerkelijk van toepassing is
         Kuiltje eindKuiltje = bord.Kuiltjes[row,column];
         if (eindKuiltje.Speler != state.Speler || eindKuiltje.GetType() == typeof(ThuisKuiltje))// Eindkuiltje is van oppo of is een thuiskuiltje
@@ -137,7 +139,7 @@ class TegenoverNietLeeg : Regel
             return (true, true);
         }
         // Was dus voor de zet leeg
-        Kuiltje tegenoverKuiltje = bord.Kuiltjes[state.GetAndereSpeler(state.Speler) - 1, column];// Kuiltje tegenover
+        Kuiltje tegenoverKuiltje = bord.Kuiltjes[state.GetAndereSpeler(state.Speler) - 1, column];// Kuiltje van andere speler tegenover
         // Dit is de happy case
         if (tegenoverKuiltje.Steentjes > 0)
         {
@@ -150,7 +152,7 @@ class TegenoverNietLeeg : Regel
 
     protected override void RegelResultaat(Bord bord, State state, int row, int column)
     {
-        Kuiltje tegenoverKuiltje = bord.Kuiltjes[state.GetAndereSpeler(state.Speler) - 1, column];// Kuiltje tegenover
+        Kuiltje tegenoverKuiltje = bord.Kuiltjes[state.GetAndereSpeler(state.Speler) - 1, column];// Kuiltje van andere speler tegenover
         Kuiltje eindKuiltje = bord.Kuiltjes[row,column];
         
         int gestolenSteentjes = 0;
