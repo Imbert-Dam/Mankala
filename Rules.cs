@@ -26,7 +26,7 @@ class ThuiskuiltjeSpeler : Rule
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
     {
-        // Letterlijk niets?!
+        // Gebeurt niks
     }
     
 }
@@ -51,7 +51,7 @@ class NietLeegKuiltje : Rule
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
     {
-        // Doe dingen met bord        
+        // Staat al in de while loop      
     }
     
 }
@@ -72,7 +72,7 @@ class LeegTegenstander : Rule
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
     {
-        throw new NotImplementedException();
+        // Gebeurt niks
     }
 
 }
