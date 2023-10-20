@@ -9,7 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="68960fa8-60e3-4cd3-bd35-670619597662" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Mankala.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Mankala.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bord.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,9 +44,9 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "/home/lukadv/.config/JetBrains/Rider2023.2/resharper-host/DecompilerCache",
-      "/home/lukadv/.config/JetBrains/Rider2023.2/resharper-host/SourcesCache",
-      "/home/lukadv/.local/share/Symbols/src"
+      "C:\\Users\\Menee\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Menee\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\Menee\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -81,6 +80,7 @@
       <updated>1697659036654</updated>
       <workItem from="1697659038681" duration="1574000" />
       <workItem from="1697706457772" duration="6227000" />
+      <workItem from="1697738898256" duration="459000" />
     </task>
     <servers />
   </component>
