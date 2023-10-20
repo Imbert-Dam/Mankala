@@ -24,18 +24,18 @@ public static class GameManager
             MankalaSpel.ZetResultaat(input);
 
         }
-        Console.WriteLine($"Speler {MankalaSpel.winnendeSpeler()} heeft gewonnen!");
-    }
 
-    // static bool isWinst() kunnen we in MankalaSpel doen
-    // {
-    //     if (MankalaSpel.state.spelGaande)
-    //     {
-    //         return false;   
-    //     }
-    //     return true;
+        if (MankalaSpel.winnendeSpeler() == 3)
+        {
+            Console.WriteLine("Gelijkspel!");
+        }
+        else
+        {
+            Console.WriteLine($"Speler {MankalaSpel.winnendeSpeler()} heeft gewonnen!");
+        }
         
-    // }
+    }
+    
 
     static void naZet()
     {

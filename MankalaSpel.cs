@@ -20,7 +20,7 @@ public abstract class MankalaSpel
     }
     protected abstract Bord GetBord();
     protected abstract void bordSettings();
-    public virtual (int,int) Zet(int current_row, int current_kuiltje)
+    public (int,int) Zet(int current_row, int current_kuiltje)
     {
         int aantalsteentjes = Speelbord.Kuiltjes[current_row , current_kuiltje].steentjes;
         Speelbord.Kuiltjes[current_row , current_kuiltje].VerwijderSteentjes();
@@ -67,7 +67,6 @@ public abstract class MankalaSpel
             }
             current_row=row;
             current_kuiltje=column;
-            check_rules =false;
         }
         if (change_player) updatePlayer();
         state.spelerGewonnen = win_check.spelWinstSpeler(Speelbord,state.speler);
@@ -90,14 +89,16 @@ public abstract class MankalaSpel
 
 public class MankalaV1 : MankalaSpel
 {
-    public MankalaV1() : base()
-    {
+    public MankalaV1()
+    {   
+        // Voor andere varianten van V1 kunnen deel van deze rules gebruikt worden, of nieuwe worden gemaakt
         regels = new List<Rule>
         {
             new ThuiskuiltjeSpeler(),
-            // new NietLeegKuiltje(),
+            new NietLeegKuiltje(),
             new LeegTegenstander(),
-            // new TegenoverNietLeeg(),
+            new TegenoverLeeg(),
+            new TegenoverNietLeeg()
         };
     }
 
