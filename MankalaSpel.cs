@@ -70,7 +70,7 @@ public abstract class MankalaSpel
             huildigKuiltje = kolom;
         }
         if (swapSpeler) UpdateSpeler();
-        _state.SpelerGewonnen = _winChecker.spelWinstSpeler(_speelbord, _state.Speler);
+        _state.SpelerGewonnen = _winChecker.SpelWinstSpeler(_speelbord, _state.Speler);
     }
     public int GetWinnendeSpeler()
     {

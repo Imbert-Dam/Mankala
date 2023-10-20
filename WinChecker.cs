@@ -3,18 +3,18 @@ public abstract class WinChecker
     protected int NumKuiltjesPP;
     protected Bord Speelbord;
     protected int HuidigeSpeler;
-    public WinChecker (int nKuiltjes)
+    protected WinChecker (int aantalKuiltjes)
     {
-        NumKuiltjesPP = nKuiltjes;
+        NumKuiltjesPP = aantalKuiltjes;
     }
     public abstract int SpelWinstSpeler(Bord speelbord, int huidigeSpeler);
 }
 
 public class WinCheckerV1 : WinChecker
 {
-    public WinCheckerV1 (int nKuiltjes):base(nKuiltjes)
+    public WinCheckerV1 (int aantalKuiltjes) : base(aantalKuiltjes)
     {
-        NumKuiltjesPP = nKuiltjes;
+        NumKuiltjesPP = aantalKuiltjes;
     }
     public override int SpelWinstSpeler(Bord speelbord, int huidigeSpeler)
     {
@@ -27,7 +27,7 @@ public class WinCheckerV1 : WinChecker
     {
         for (int i = 0; i < NumKuiltjesPP-1; i++) //-1 gezien aantal kuiltjes per persoon thuiskuiltjes meerekend.
         {
-            if(Speelbord.Kuiltjes[HuidigeSpeler-1 , i].steentjes != 0)
+            if(Speelbord.Kuiltjes[HuidigeSpeler-1 , i].Steentjes != 0)
             {
                 return true;
             }
@@ -46,16 +46,16 @@ public class WinCheckerV1 : WinChecker
         {
             if(tk.Speler == 1)
             {
-                speler1Score += tk.steentjes;
+                speler1Score += tk.Steentjes;
             }
             else
             {
-                speler2Score += tk.steentjes;
+                speler2Score += tk.Steentjes;
             }
         }
-        if          (speler1Score>speler2Score)       return 1; //speler 1 heeft gewonnen
-        else if     (speler1Score<speler2Score)       return 2; //speler 2 heeft gewonnen
-        return 3;                                               //gelijkspel
+        if (speler1Score > speler2Score) return 1; //speler 1 heeft gewonnen
+        if (speler1Score < speler2Score) return 2; //speler 2 heeft gewonnen
+                                         return 3; //gelijkspel
     }
     
 }
