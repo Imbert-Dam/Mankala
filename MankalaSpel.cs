@@ -51,7 +51,7 @@ public abstract class MankalaSpel
     public virtual void updatePlayer()
     {
         state.nextPlayer();
-        current_player = state.speler;
+        current_player = state.speler; // current_player is eigk heel irritant; miss gwn overal state.speler gebruiken?
     }
 
     public virtual void ZetResultaat(int row, int collumn) // Hoeft niet echt virtual te zijn eigk -> tenzij we later sjit moeten doen
@@ -91,7 +91,7 @@ public class MankalaV1 : MankalaSpel
         regels = new List<Rule>
         {
             new ThuiskuiltjeSpeler(),
-            new NietLeegKuiltje()
+            new NietLeegKuiltjeSpeler()
         };
     }
 
