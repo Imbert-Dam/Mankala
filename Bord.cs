@@ -3,7 +3,7 @@ using System.Text;
 public abstract class Bord
 {
     public Kuiltje[,] Kuiltjes;
-    public List<ThuisKuiltje> ThuisKuiltjes; // Moet miss Kuiltjes type zijn
+    public List<ThuisKuiltje> ThuisKuiltjes;
     public int rijen;
     public int kuiltjes_per_rij;
     public int aantal_thuiskuiltjes;
@@ -34,7 +34,7 @@ public class MankalaV1Bord : Bord
             
             ThuisKuiltje tempThuis = new ThuisKuiltje(0, rij + 1);
             Kuiltjes[rij, kuiltjes_per_rij - 1] = tempThuis;
-            ThuisKuiltjes.Append(tempThuis);
+            ThuisKuiltjes.Add(tempThuis);
 
         }
     }

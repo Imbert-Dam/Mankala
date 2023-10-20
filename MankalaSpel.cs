@@ -5,7 +5,7 @@ public abstract class MankalaSpel
     public int current_player; //stores huidige speler maar ook winnaar als afgelopen
     public int n_kuiltjes_player;
     public int n_rows_player;
-
+    public List<Rule> regels; // Is voor elke variant anders
 
     public MankalaSpel()
     {
@@ -32,7 +32,7 @@ public abstract class MankalaSpel
             }
             Speelbord.Kuiltjes[current_row , current_kuiltje].AddSteentje();
 
-        } // misschien methode
+        } // misschien methode - sowieso ff comments
         ZetResultaat();
         updatePlayer();
         CheckWin();
@@ -51,7 +51,21 @@ public abstract class MankalaSpel
         state.nextPlayer();
         current_player = state.speler;
     }
-    public abstract void ZetResultaat();
+
+    public virtual void ZetResultaat() // Hoeft niet echt virtual te zijn eigk -> tenzij we later sjit moeten doen
+    {
+        bool nieuweZet = true;
+        while (nieuweZet)
+        {
+            foreach (Rule regel in regels)
+            {
+                bool nieuweZetRegel;
+                nieuweZetRegel = regel.startRuleProcedure(Speelbord, state);
+                nieuweZet = nieuweZetRegel;
+                if (nieuweZetRegel) break;
+            }
+        }
+    }
     public int winnendeSpeler()
     {
         return state.spelerGewonnen;
@@ -70,6 +84,15 @@ public abstract class MankalaSpel
 
 public class MankalaV1 : MankalaSpel
 {
+    public MankalaV1() : base()
+    {
+        regels = new List<Rule>
+        {
+            new ThuiskuiltjeSpeler(),
+            new NietLeegKuiltje()
+        };
+    }
+
     protected override void bordSettings()
     {
         n_rows_player = 1;
@@ -79,12 +102,7 @@ public class MankalaV1 : MankalaSpel
     protected override Bord GetBord()
     {
         int aantal_spelers = 2;
-        return new MankalaV1Bord(n_rows_player*aantal_spelers , n_kuiltjes_player);
-    }
-
-    public override void ZetResultaat()
-    {
-        
+        return new MankalaV1Bord(n_rows_player * aantal_spelers , n_kuiltjes_player);
     }
 
     public override void CheckWin() //naam aanpassen naar update winner
