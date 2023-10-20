@@ -42,7 +42,7 @@ class NietLeegKuiltje : Rule
     {
         // Check of regel daadwerkelijk van toepassing is
         Kuiltje eindkuiltje = bord.Kuiltjes[row,column];
-        if (eindkuiltje.GetType()==typeof(BordKuiltje)&&eindkuiltje.steentjes>1)
+        if (eindkuiltje.GetType()==typeof(BordKuiltje) && eindkuiltje.steentjes > 1)
         {
             ruleResultaat(bord, state, row, column);
         }
@@ -58,11 +58,14 @@ class NietLeegKuiltje : Rule
 
 class LeegTegenstander : Rule
 {
+    /*De laatste steen komt in een leeg kuiltje van de tegenspeler. De zet is over, en de
+    beurt is over: de tegenspeler is aan de beurt.
+    */
     public override (bool, bool) startRuleProcedure(Bord bord, State state, int row, int column)
     {
         // Check of regel daadwerkelijk van toepassing is
         Kuiltje eindkuiltje = bord.Kuiltjes[row,column];
-        if (eindkuiltje.speler!=state.speler&&eindkuiltje.steentjes==1)
+        if (eindkuiltje.speler != state.speler && eindkuiltje.steentjes == 1)
         {
             ruleResultaat(bord, state, row, column);
             return (false,true);
@@ -74,7 +77,23 @@ class LeegTegenstander : Rule
     {
         // Gebeurt niks
     }
+}
 
+class TegenoverLeeg : Rule
+{
+    /*
+     * De laatste steen komt in een leeg kuiltje van de speler. Het kuiltje van de tegenspeler daar tegenover is leeg.
+     * De zet is over, de beurt is over: de tegenspeler is aan de beurt.
+     */
+    public override (bool, bool) startRuleProcedure(Bord bord, State state, int row, int column)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void ruleResultaat(Bord bord, State state, int row, int column)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 class TegenoverNietLeeg : Rule
@@ -92,17 +111,19 @@ class TegenoverNietLeeg : Rule
             return (true, false);
         }
         // Dus eindkuiltje is van speler EN is type Bordkuiltje
-        if (eindKuiltje.steentjes != 1) 
+        if (eindKuiltje.steentjes != 1)
         {
             return (true, false);
         }
         // Was dus voor de zet leeg
         Kuiltje tegenoverKuiltje = bord.Kuiltjes[state.getOtherPlayer(state.speler) - 1, column];// Kuiltje tegenover
+        // Dit is de happy case
         if (tegenoverKuiltje.steentjes == 0)
         {
             ruleResultaat(bord, state, row, column);
             return (false, true);
         }
+        // Als niet happy case: return default
         return (true, false);
     }
 

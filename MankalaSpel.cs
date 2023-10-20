@@ -94,7 +94,9 @@ public class MankalaV1 : MankalaSpel
         regels = new List<Rule>
         {
             new ThuiskuiltjeSpeler(),
-            new NietLeegKuiltje()
+            new NietLeegKuiltje(),
+            new LeegTegenstander(),
+            new TegenoverNietLeeg()
         };
     }
 

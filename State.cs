@@ -19,9 +19,9 @@ public class State
             lock (_instanceLock) 
             { // prevents multiple threads from creating an instance of Printer
                 if (_instance == null) 
-                    { // it will be only used by the first thread
-                        _instance = new State();
-                    }
+                { // it will be only used by the first thread
+                    _instance = new State();
+                }
             }
         }
         return _instance;
