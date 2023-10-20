@@ -11,7 +11,7 @@ public abstract class Bord
 
 public class MankalaV1Bord : Bord
 {
-    public MankalaV1Bord(int rijen, int kuiltjesPerRij, int aantalThuiskuiltjes = 2)
+    public MankalaV1Bord(int rijen, int kuiltjesPerRij, int steentjesPerKuiltje, int aantalThuiskuiltjes = 2)
     {
         // Maak bord met bepaalde hvh kuiltjes -> MankalaV1 heeft dus deze opties
         this.Rijen = rijen;
@@ -19,7 +19,7 @@ public class MankalaV1Bord : Bord
         this.AantalThuiskuiltjes = aantalThuiskuiltjes;
         Kuiltjes = new Kuiltje[rijen, kuiltjesPerRij];
         ThuisKuiltjes = new List<ThuisKuiltje>();
-        VulBord(4);
+        VulBord(steentjesPerKuiltje);
     }
     private void VulBord(int aantalSteentjes)
     { 

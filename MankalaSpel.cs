@@ -124,7 +124,8 @@ public class MankalaV1 : MankalaSpel
     {
         // Factory method
         int aantalSpelers = 2; // Wordt nooit echt veranderd but cant hurt
-        return new MankalaV1Bord(AantalRijenSpeler * aantalSpelers , AantalKuiltjesSpeler);
+        int steentjesPerKuiltje = 4; // Kan ook member variabele van klasse worden zoals AantalTijenSpeler en AantalKuiltjesSpeler
+        return new MankalaV1Bord(AantalRijenSpeler * aantalSpelers , AantalKuiltjesSpeler, steentjesPerKuiltje);
     }
 
     protected override WinChecker GetWinChecker()
