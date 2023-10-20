@@ -108,7 +108,19 @@ class TegenoverNietLeeg : Rule
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
     {
+        Kuiltje tegenoverKuiltje = bord.Kuiltjes[state.getOtherPlayer(state.speler) - 1, column];// Kuiltje tegenover
+        Kuiltje eindKuiltje = bord.Kuiltjes[row,column];
         
+        int gestolenSteentjes = 0;
+        
+        gestolenSteentjes += eindKuiltje.steentjes; // 1 als het goed is
+        eindKuiltje.steentjes = 0; 
+        
+        gestolenSteentjes += tegenoverKuiltje.steentjes;
+        tegenoverKuiltje.steentjes = 0;
+
+        Kuiltje thuisKuiltjeSpeler = bord.ThuisKuiltjes[state.speler - 1];
+        thuisKuiltjeSpeler.steentjes += gestolenSteentjes;
         
     }
 }
