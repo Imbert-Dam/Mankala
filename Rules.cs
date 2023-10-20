@@ -17,10 +17,11 @@ class ThuiskuiltjeSpeler : Rule
         Kuiltje eindKuiltje = bord.Kuiltjes[row,column];
         if ((eindKuiltje.speler == state.speler) && (eindKuiltje.GetType()==typeof(ThuisKuiltje)))
         {
-            ruleResultaat(bord, state, row, column);
-            return (false, true);
+            ruleResultaat(bord, state);
+            return (false,false);
         }
-        return (true, false);
+
+        return (true,false);
     }
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
@@ -30,7 +31,7 @@ class ThuiskuiltjeSpeler : Rule
     
 }
 
-class NietLeegKuiltjeSpeler : Rule
+class NietLeegKuiltje : Rule
 {
     /*De laatste steen komt in een ander kuiltje dan het thuiskuiltje van de speler, en dat
     kuiltje was niet leeg. De speler pakt alle stenen in het kuiltje op, en gaat verder
@@ -40,11 +41,12 @@ class NietLeegKuiltjeSpeler : Rule
     public override (bool,bool) startRuleProcedure(Bord bord, State state, int row, int column)
     {
         // Check of regel daadwerkelijk van toepassing is
-        if (true)
+        Kuiltje eindkuiltje = bord.Kuiltjes[row,column];
+        if (eindkuiltje.GetType()==typeof(BordKuiltje)&&eindkuiltje.steentjes>1)
         {
             ruleResultaat(bord, state);
-            return false; // ZET DIT OP TRUE ALS REGEL GEIMPLEMENT IS !!!!1!11!!!11 
         }
+        return (true,false);
     }
 
     protected override void ruleResultaat(Bord bord, State state, int row, int column)
@@ -52,6 +54,27 @@ class NietLeegKuiltjeSpeler : Rule
         // Doe dingen met bord        
     }
     
+}
+
+class LeegTegenstander : Rule
+{
+    public override (bool, bool) startRuleProcedure(Bord bord, State state, int row, int column)
+    {
+        // Check of regel daadwerkelijk van toepassing is
+        Kuiltje eindkuiltje = bord.Kuiltjes[row,column];
+        if (eindkuiltje.speler!=state.speler&&eindkuiltje.steentjes==1)
+        {
+            ruleResultaat(bord, state);
+            return (false,true);
+        }
+        return (true,false);
+    }
+
+    protected override void ruleResultaat(Bord bord, State state)
+    {
+        throw new NotImplementedException();
+    }
+
 }
 
 class TegenoverNietLeeg : Rule
