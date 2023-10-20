@@ -35,7 +35,7 @@ public abstract class MankalaSpel
             Speelbord.Kuiltjes[current_row , current_kuiltje].AddSteentje();
 
         } // misschien methode - sowieso ff comments
-        ZetResultaat();
+        ZetResultaat(Speelbord.Kuiltjes[current_row , current_kuiltje]);
         updatePlayer();
         state.spelerGewonnen = win_check.spelWinstSpeler(Speelbord,state.speler);
         
@@ -54,7 +54,7 @@ public abstract class MankalaSpel
         current_player = state.speler;
     }
 
-    public virtual void ZetResultaat() // Hoeft niet echt virtual te zijn eigk -> tenzij we later sjit moeten doen
+    public virtual void ZetResultaat(Kuiltje eindKuiltje) // Hoeft niet echt virtual te zijn eigk -> tenzij we later sjit moeten doen
     {
         bool nieuweZet = true;
         while (nieuweZet)
@@ -62,7 +62,7 @@ public abstract class MankalaSpel
             foreach (Rule regel in regels)
             {
                 bool nieuweZetRegel;
-                nieuweZetRegel = regel.startRuleProcedure(Speelbord, state);
+                nieuweZetRegel = regel.startRuleProcedure(Speelbord, state ,eindKuiltje);
                 nieuweZet = nieuweZetRegel;
                 if (nieuweZetRegel) break;
             }
