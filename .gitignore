@@ -11,3 +11,4 @@ Mankala.csproj
 .vs/Mankala/FileContentIndex/read.lock
 .vs/slnx.sqlite
 *.vsidx
+.vs/*
