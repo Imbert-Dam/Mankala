@@ -7,3 +7,7 @@ Mankala.csproj
 *.DS_Store
 *.xml
 .idea/.idea.Mankala.dir/.idea/workspace.xml
+.vs/Mankala/FileContentIndex/430e7643-69e2-4ba3-8a1a-61c1b87c04a5.vsidx
+.vs/Mankala/FileContentIndex/read.lock
+.vs/slnx.sqlite
+*.vsidx
