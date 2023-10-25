@@ -1,9 +1,10 @@
 ### C# ###
 #launch.json folder
 .vscode/
+.vs/
 bin/
 obj/
-Mankala.csproj
+*.csproj
 *.DS_Store
 *.xml
-.idea/.idea.Mankala.dir/.idea/workspace.xml
+*.user
