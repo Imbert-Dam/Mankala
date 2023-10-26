@@ -6,17 +6,53 @@ static class Program
 {
     static void Main()
     {
-        Application.Run(new UI());
-        GameManager.GameLoop();
         
+        Console.WriteLine("Kies welke versie van de Mankala-applicatie gestart moet worden.\n" +
+        "Typ 'c' voor console of 'f' voor WinForms.");
+        string input = Console.ReadLine();
+        if (input == null || input.Equals(""))
+        {
+            Console.WriteLine("Geef input!");
+            // Kan in while loopje voor completeness
+        }
+        if (input.Equals("c")) {
+            GameManager.KiesVariant();
+            GameManager.GameLoop();
+        }
+        if (input.Equals("f"))
+        {
+            Application.Run(new UI());
+        }
+
     }
 }
 
 public static class GameManager
 {
 
-    private static MankalaSpel _mankalaSpel = new MankalaV1(); // Enige plek waar we V1 kiezen met dank aan factory methods
-    
+    private static MankalaSpel _mankalaSpel;
+
+    public static void KiesVariant()
+    {
+        Console.WriteLine("Kies een variant.\n1: Mankala Standaard\n2: Wari\n3: LocalSpecial");
+        string variant = Console.ReadLine();
+        if (variant == null || variant.Equals(""))
+        {
+            Console.WriteLine("Kies een variant!");
+        }
+        if (variant.Equals("1"))
+        {
+            _mankalaSpel = new MankalaV1();
+        }
+        else if(variant.Equals("2"))
+        {
+            //_mankalaSpel = new MankalaWari();
+        }
+        else if(variant.Equals("3"))
+        {
+            //_mankalaSpel = new MankalaV3();
+        }
+    }
     public static void GameLoop()
     {
         // Als GetWinnendeSpeler nog 0 is = geen winnaar, 1 en 2 is win van die speler, 3 is gelijkspel 

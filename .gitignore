@@ -14,3 +14,5 @@ obj/
 *.vsidx
 .vs/*
 *.user
+.idea/
+Sprint2/.idea/
